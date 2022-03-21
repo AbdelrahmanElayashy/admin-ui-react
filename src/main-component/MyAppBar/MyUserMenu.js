@@ -6,7 +6,7 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import { Avatar } from "@mui/material";
 import ShowPlatform from "../TogglePlatform/ShowPlatform";
-import LogoutIcon from "@material-ui/icons/ExitToApp";
+import LogoutIcon from "@mui/icons-material/Logout";
 
 const MyLogoutButton = React.forwardRef((props, ref) => {
   const logout = useLogout();

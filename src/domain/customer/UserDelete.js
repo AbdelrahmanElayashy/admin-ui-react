@@ -8,9 +8,10 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import { useDataProvider, useNotify, useRedirect } from "react-admin";
-import DeleteIcon from "@material-ui/icons/Delete";
+import DeleteIcon from "@mui/icons-material/Delete";
 import { getConfigurationsByAccountToken } from "../../api/Configuration";
 import { getPiplinesByAccountToken } from "../../api/Pipline";
+import APIS from "../../dataProvider/ApiEndpoint";
 
 const UserDelete = (props) => {
   const [open, setOpen] = useState(false);
@@ -41,9 +42,8 @@ const UserDelete = (props) => {
     const piplines = await getPiplinesByAccountToken({ tokenAdmin });
 
     if (!piplines.data.length && !configurations.data.length) {
-      console.log(piplines, configurations);
       dataProvider
-        .delete("api/v1/accounts", {
+        .delete(APIS.ACCOUNTS, {
           data: {
             id: userId,
             tokenAdmin: record.tokenAdmin,
@@ -51,7 +51,7 @@ const UserDelete = (props) => {
         })
         .then((e) => {
           notify(`User is deleted`, { type: "info" });
-          redirect("/api/v1/accounts");
+          redirect(`/${APIS.ACCOUNTS}`);
         })
         .catch((error) => {
           notify(`User is not deleted`, { type: "warning" });

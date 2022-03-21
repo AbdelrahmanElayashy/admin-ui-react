@@ -1,4 +1,5 @@
-import { makeStyles } from "@material-ui/core/styles";
+import { Box } from "@mui/material";
+import { makeStyles } from "@mui/styles";
 import * as React from "react";
 import {
   List,
@@ -8,28 +9,42 @@ import {
   EditButton,
   ShowButton,
   TextInput,
+  CreateButton,
 } from "react-admin";
 
 const useStyles = makeStyles({
-  headerCell: {
-    backgroundColor: "#7cb342",
+  title: {
+    flex: 1,
+    textOverflow: "ellipsis",
+    whiteSpace: "nowrap",
+    overflow: "hidden",
+  },
+  spacer: {
+    flex: 1,
   },
 });
 
+const ListActions = () => {
+  const classes = useStyles();
+  return (
+    <>
+      <span className={classes.spacer} />
+      <CreateButton />
+    </>
+  );
+};
+
 const userFilters = [<TextInput label="Search By Name" source="q" alwaysOn />];
 const UserList = (props) => {
-  const classes = useStyles();
-
   return (
     <List
       {...props}
       filters={userFilters}
-      hasEdit={false}
       title={"Customer Edit"}
-      bulkActionButtons={false}
       exporter={false}
+      actions={<ListActions />}
     >
-      <Datagrid classes={classes}>
+      <Datagrid bulkActionButtons={false}>
         {/* <TextField source="id" sortable={false} /> */}
         <TextField source="name" sortable={false} />
         <EmailField source="email" sortable={false} />

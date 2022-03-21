@@ -11,21 +11,22 @@ import {
   useCreate,
   useDataProvider,
 } from "react-admin";
+import APIS from "../../dataProvider/ApiEndpoint";
 
 const UserCreate = (props) => {
   const dataProvider = useDataProvider();
   const redirect = useRedirect();
 
   const redirectToShow = async (id) => {
-    redirect(`/api/v1/accounts/${id}/show`);
+    redirect(`/${APIS.ACCOUNTS}/${id}/show`);
   };
 
   const save = async (response) => {
-    const resp = await dataProvider.getOne("api/v1/accounts", {
-      id: response.data.id,
+    const resp = await dataProvider.getOne(APIS.ACCOUNTS, {
+      id: response.id,
     });
 
-    await dataProvider.create("api/v1/configurations", {
+    await dataProvider.create(APIS.CONFIGURATIONS, {
       data: {
         ["configuration-name"]: "Default Configuration",
         configuration: "classifier",
@@ -33,11 +34,11 @@ const UserCreate = (props) => {
       },
     });
 
-    await redirectToShow(response.data.id);
+    await redirectToShow(response.id);
   };
 
   return (
-    <Create {...props} onSuccess={save}>
+    <Create mutationOptions={{ onSuccess: save }}>
       <SimpleForm redirect="show">
         <TextInput validate={[required()]} source="name" />
         <TextInput validate={[required()]} source="email" />

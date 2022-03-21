@@ -1,3 +1,4 @@
+import { Reorder } from "@mui/icons-material";
 import * as React from "react";
 import {
   Show,
@@ -7,6 +8,7 @@ import {
   useRecordContext,
   EmailField,
   TopToolbar,
+  useShowContext,
 } from "react-admin";
 import { ConfigurationList } from "../configuration/ConfigurationList";
 import { PiplineList } from "../pipline/PiplineList";
@@ -16,7 +18,7 @@ import UserStatistic from "../statistic/UserStatistic";
 //   return <TopToolbar></TopToolbar>;
 // };
 const UserShow = (props) => {
-  const record = useRecordContext();
+
 
   return (
     <Show {...props}>
@@ -31,13 +33,13 @@ const UserShow = (props) => {
           <TextField source="tokenRecognition" />
         </Tab>
         <Tab label="Pipline">
-          <PiplineList record={record} />
+          <PiplineList />
         </Tab>
         <Tab label="Configuration">
-          <ConfigurationList record={record} />
+          <ConfigurationList />
         </Tab>
         {/* <Tab label="statistics">
-          <UserStatistic record={record} />
+          <UserStatistic/>
         </Tab> */}
       </TabbedShowLayout>
     </Show>

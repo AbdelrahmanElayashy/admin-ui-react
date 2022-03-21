@@ -31,8 +31,7 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
    * @returns {Object} { url, options } The HTTP request parameters
    */
   const convertDataRequestToHTTP = (type, resource, params) => {
-    console.log(params);
-    const { tokenAdmin } = params.data;
+    const { tokenAdmin } = params.data || params.meta;
     let url = "";
     const options = {
       headers: new Headers({

@@ -8,7 +8,8 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import { useDataProvider, useNotify, useRefresh } from "react-admin";
-import DeleteIcon from "@material-ui/icons/Delete";
+import DeleteIcon from "@mui/icons-material/Delete";
+import APIS from "../../dataProvider/ApiEndpoint";
 
 const ConfigurationDelete = (props) => {
   const [open, setOpen] = useState(false);
@@ -36,7 +37,7 @@ const ConfigurationDelete = (props) => {
     setOpen(false);
     console.log(configurationId);
     dataProvider
-      .delete("api/v1/configurations", {
+      .delete(APIS.CONFIGURATIONS, {
         data: {
           id: configurationId,
           tokenAdmin: record.tokenAdmin,

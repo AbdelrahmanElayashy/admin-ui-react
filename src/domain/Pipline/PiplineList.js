@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import {
-  Button,
   Paper,
   Table,
   TableBody,
@@ -10,10 +9,22 @@ import {
   TableRow,
 } from "@mui/material";
 import { getPiplinesByAccountToken } from "../../api/Pipline";
-import DeleteIcon from "@material-ui/icons/Delete";
-import { Link, TopToolbar } from "react-admin";
-import AddIcon from "@material-ui/icons/Add";
+import DeleteIcon from "@mui/icons-material/Delete";
+import {
+  Button,
+  EditButton,
+  Link,
+  TopToolbar,
+  useGetList,
+  useShowContext,
+  useShowController,
+} from "react-admin";
+import AddIcon from "@mui/icons-material/Add";
 import PiplineDelete from "./PiplineDelete";
+import PiplineEdit from "./PiplineEdit";
+import APIS from "../../dataProvider/ApiEndpoint";
+import PiplineEditButton from "./PiplineEditButton";
+import EditIcon from "@mui/icons-material/Edit";
 
 const ShowActions = (props) => {
   return (
@@ -21,20 +32,25 @@ const ShowActions = (props) => {
       <Button
         component={Link}
         to={{
-          pathname: "/api/v1/pipelines/create",
+          pathname: `/${APIS.PIPELINES}/create`,
           state: { record: props.record },
         }}
-        label="Create Pipline"
+        label=""
       >
         <AddIcon />
+        Add Pipline
       </Button>
     </TopToolbar>
   );
 };
 
 export const PiplineList = (props) => {
-  const [piplines, setPiplines] = useState([]);
+  const { record } = useShowController(); // user record
   const [open, setOpen] = useState(false);
+
+  const { data: piplines } = useGetList(`${APIS.PIPELINES}`, {
+    meta: { tokenAdmin: record.tokenAdmin },
+  });
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -44,15 +60,6 @@ export const PiplineList = (props) => {
     setOpen(false);
   };
 
-  useEffect(() => {
-    getPiplinesByAccountToken(props.record).then((e) => setPiplines(e.data));
-  }, []);
-
-  const record = props.record;
-  if (!record) {
-    return null;
-  }
-
   return (
     <>
       <TableContainer component={Paper}>
@@ -61,7 +68,9 @@ export const PiplineList = (props) => {
             <TableRow>
               <TableCell>name</TableCell>
               <TableCell>id</TableCell>
+              <TableCell>identifier</TableCell>
               <TableCell>configuration-id</TableCell>
+              <TableCell align="right"></TableCell>
               <TableCell align="right"></TableCell>
             </TableRow>
           </TableHead>
@@ -76,7 +85,20 @@ export const PiplineList = (props) => {
                     {pipline.name}
                   </TableCell>
                   <TableCell>{pipline.id}</TableCell>
+                  <TableCell>{pipline.nodes[0].identifier}</TableCell>
                   <TableCell>{pipline.nodes[0].configuration}</TableCell>
+                  <TableCell align="right">
+                    <Button
+                      component={Link}
+                      to={{
+                        pathname: `/${APIS.PIPELINES}/${pipline.id}`,
+                        state: { record: record, pipline: pipline },
+                      }}
+                      label="Edit"
+                    >
+                      <EditIcon />
+                    </Button>
+                  </TableCell>
                   <TableCell align="right">
                     <PiplineDelete record={record} pipline={pipline} />
                   </TableCell>

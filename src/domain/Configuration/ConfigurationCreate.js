@@ -7,8 +7,10 @@ import {
   SaveButton,
   required,
   Toolbar,
+  useRedirect,
 } from "react-admin";
 import { useLocation } from "react-router";
+import APIS from "../../dataProvider/ApiEndpoint";
 
 const CustomToolbar = (props) => (
   <Toolbar {...props}>
@@ -18,25 +20,29 @@ const CustomToolbar = (props) => (
 
 export const ConfigurationCreate = (props) => {
   const location = useLocation();
+  const redirect = useRedirect();
+
   const tokenAdmin =
     location.state && location.state.record
       ? location.state.record.tokenAdmin
       : undefined;
 
-  const redirect = tokenAdmin
-    ? `/api/v1/accounts/${location.state.record.id}/show/2`
-    : false;
-
   if (!tokenAdmin) {
     return null;
   }
 
+  const onSuccess = () => {
+    redirect(`/${APIS.ACCOUNTS}/${location.state.record.id}/show/2`);
+  };
+
   return (
     <Create
-      {...props}
-      transform={(data) => ({ ...data, tokenAdmin: tokenAdmin })}
+      mutationOptions={{ onSuccess }}
+      transform={(data) => {
+        return { ...data, tokenAdmin: tokenAdmin };
+      }}
     >
-      <SimpleForm redirect={redirect} toolbar={<CustomToolbar />}>
+      <SimpleForm toolbar={<CustomToolbar />}>
         <TextInput validate={[required()]} source="configuration-name" />
         <SelectInput
           validate={[required()]}

@@ -31,24 +31,26 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
    * @returns {Object} { url, options } The HTTP request parameters
    */
   const convertDataRequestToHTTP = (type, resource, params) => {
-    const { tokenAdmin } = params.data;
     let url = "";
-    const options = {
-      headers: new Headers({
-        Authorization: tokenAdmin,
-      }),
-    };
+    const options = {};
+
     switch (type) {
       case GET_LIST: {
-        const { page, perPage } = params.pagination;
-        const { field, order } = params.sort;
-        const q = params.filter.hasOwnProperty("q") ? params.filter.q : "";
-        const skip = (page - 1) * perPage;
-        url = `${apiUrl}/${resource}?filter=${q}&skip=${skip}&limit=${perPage}`;
+        const { tokenAdmin } = params.data || params.meta;
+        options.headers = new Headers({
+          Authorization: tokenAdmin,
+        });
+        url = `${apiUrl}/${resource}`;
         break;
       }
       case GET_ONE:
-        url = `${apiUrl}/${resource}/${params.id}`;
+        console.log("params", params);
+        options.headers = new Headers({
+          Authorization: params.id.tokenAdmin,
+        });
+        url = `${apiUrl}/${resource}/${params.id.id}`;
+        console.log("url", url);
+        console.log("tok", params.id.tokenAdmin);
         break;
       case GET_MANY: {
         const query = {
@@ -65,16 +67,21 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
         break;
       }
       case UPDATE:
+        options.headers = new Headers({
+          Authorization: params.data.tokenAdmin,
+        });
         url = `${apiUrl}/${resource}/${params.id}`;
         options.method = "PUT";
         options.body = JSON.stringify({
           email: params.data.email,
           name: params.data.name,
         });
-        console.log("option", options);
+
         break;
       case CREATE:
-        console.log("config", params.data);
+        options.headers = new Headers({
+          Authorization: params.data.tokenAdmin,
+        });
         url = `${apiUrl}/${resource}`;
         options.method = "POST";
         options.body = JSON.stringify({
@@ -93,6 +100,9 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
         });
         break;
       case DELETE:
+        options.headers = new Headers({
+          Authorization: params.data.tokenAdmin,
+        });
         url = `${apiUrl}/${resource}/${params.data.id}`;
         options.method = "DELETE";
         break;

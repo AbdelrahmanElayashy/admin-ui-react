@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import * as React from "react";
 import {
   Create,
@@ -9,10 +8,11 @@ import {
   required,
   CheckboxGroupInput,
   Toolbar,
-  useDataProvider,
+  useRedirect,
+  useGetList,
 } from "react-admin";
 import { useLocation } from "react-router";
-import { getConfigurationsByAccountToken } from "../../api/Configuration";
+import APIS from "../../dataProvider/ApiEndpoint";
 
 const CustomToolbar = (props) => (
   <Toolbar {...props}>
@@ -21,57 +21,38 @@ const CustomToolbar = (props) => (
 );
 
 const PiplineCreate = (props) => {
-  const [configList, setConfigList] = useState();
-  const dataProvider = useDataProvider();
   const location = useLocation();
+  const redirect = useRedirect();
 
   const tokenAdmin =
     location.state && location.state.record
       ? location.state.record.tokenAdmin
       : undefined;
 
-  const redirect = tokenAdmin
-    ? `/api/v1/accounts/${location.state.record.id}/show/1`
-    : false;
-
-  const fetchAndUpdateConfigList = async () => {
-    const response = await getConfigurationsByAccountToken({ tokenAdmin });
-    const data = await response.data.map((arrElement) => {
-      return {
-        id: arrElement.id,
-        name: arrElement.name,
-      };
-    });
-    setConfigList(data);
-  };
-
-  useEffect(() => {
-    fetchAndUpdateConfigList();
-  }, []);
+  const { data: configList } = useGetList(`${APIS.CONFIGURATIONS}`, {
+    meta: { tokenAdmin: tokenAdmin },
+  });
 
   if (!tokenAdmin) {
     return null;
   }
 
+  const onSuccess = () => {
+    redirect(`/${APIS.ACCOUNTS}/${location.state.record.id}/show/1`);
+  };
+
   return (
     <Create
-      {...props}
+      mutationOptions={{ onSuccess }}
       transform={(data) => ({ ...data, tokenAdmin: tokenAdmin })}
     >
-      <SimpleForm redirect={redirect} toolbar={<CustomToolbar />}>
+      <SimpleForm toolbar={<CustomToolbar />}>
         <TextInput
           validate={[required()]}
           source="pipline-name"
           defaultValue=""
         />
-        {configList && (
-          <SelectInput
-            validate={[required()]}
-            source="configuration"
-            defaultValue="Default Configuration"
-            choices={configList}
-          />
-        )}
+
         <TextInput
           validate={[required()]}
           source="identifier"
@@ -81,6 +62,11 @@ const PiplineCreate = (props) => {
           validate={[required()]}
           source="descriptor"
           defaultValue="descriptor"
+        />
+        <SelectInput
+          validate={[required()]}
+          source="configuration"
+          choices={configList}
         />
 
         <SelectInput

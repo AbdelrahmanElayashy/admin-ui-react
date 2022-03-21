@@ -72,7 +72,7 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
           email: params.data.email,
           name: params.data.name,
         });
-        console.log("option", options);
+
         break;
       case CREATE:
         url = `${apiUrl}/${resource}`;
@@ -100,7 +100,6 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
     const { headers, body } = response;
     const data = JSON.parse(body).data;
 
-    console.log("response", response);
     switch (type) {
       case GET_LIST:
       case GET_MANY_REFERENCE:

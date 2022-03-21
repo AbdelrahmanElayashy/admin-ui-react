@@ -1,4 +1,4 @@
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@mui/styles";
 import * as React from "react";
 import {
   Edit,
@@ -31,7 +31,7 @@ const UserEdit = (props) => {
   const record = useRecordContext();
 
   return (
-    <Edit {...props} undoable={false}>
+    <Edit>
       <SimpleForm toolbar={<CustomToolbar record={record} />}>
         <TextInput source="name" />
         <TextInput source="email" />

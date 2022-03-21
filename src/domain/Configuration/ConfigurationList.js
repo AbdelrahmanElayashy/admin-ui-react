@@ -1,9 +1,4 @@
 import {
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
   Paper,
   Table,
   TableBody,
@@ -12,10 +7,16 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import { forwardRef, useEffect, useState } from "react";
-import { Button, CreateButton, Error, Link, TopToolbar } from "react-admin";
+import {
+  Button,
+  Link,
+  TopToolbar,
+  useGetList,
+  useShowController,
+} from "react-admin";
 import { getConfigurationsByAccountToken } from "../../api/Configuration";
-import AddIcon from "@material-ui/icons/Add";
+import AddIcon from "@mui/icons-material/Add";
+import APIS from "../../dataProvider/ApiEndpoint";
 
 import ConfigurationDelete from "./ConfigurationDelete";
 
@@ -24,34 +25,30 @@ const ShowActions = (props) => (
     <Button
       component={Link}
       to={{
-        pathname: "/api/v1/configurations/create",
+        pathname: `/${APIS.CONFIGURATIONS}/create`,
         state: { record: props.record },
       }}
       label=""
     >
       <AddIcon />
+      Add Configuration
     </Button>
   </TopToolbar>
 );
 
 export const ConfigurationList = (props) => {
-  const [config, setConfig] = useState([]);
-  const [result, setResult] = useState(false);
+  const { record } = useShowController();
 
-  useEffect(() => {
-    getConfigurationsByAccountToken(props.record).then((e) =>
-      setConfig(e.data)
-    );
-  }, []);
+  const { data, isLoading, error } = useGetList(`${APIS.CONFIGURATIONS}`, {
+    meta: { tokenAdmin: record.tokenAdmin },
+  });
 
-  const record = props.record;
-  if (!record) {
-    return null;
+  if (error) {
+    return <p>ERROR</p>;
   }
 
   return (
     <>
-      {/* <ShowActions /> */}
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
@@ -63,8 +60,8 @@ export const ConfigurationList = (props) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {config &&
-              config.map((configuration) => (
+            {data &&
+              data.map((configuration) => (
                 <TableRow
                   key={configuration.id}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
@@ -85,7 +82,7 @@ export const ConfigurationList = (props) => {
           </TableBody>
         </Table>
       </TableContainer>
-      {config && <ShowActions record={record} />}
+      {data && <ShowActions record={record} />}
     </>
   );
 };
