@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import * as React from "react";
 import {
   Create,
@@ -8,8 +9,10 @@ import {
   required,
   CheckboxGroupInput,
   Toolbar,
+  useDataProvider,
 } from "react-admin";
 import { useLocation } from "react-router";
+import { getConfigurationsByAccountToken } from "../../api/Configuration";
 
 const CustomToolbar = (props) => (
   <Toolbar {...props}>
@@ -18,7 +21,10 @@ const CustomToolbar = (props) => (
 );
 
 const PiplineCreate = (props) => {
+  const [configList, setConfigList] = useState();
+  const dataProvider = useDataProvider();
   const location = useLocation();
+
   const tokenAdmin =
     location.state && location.state.record
       ? location.state.record.tokenAdmin
@@ -27,6 +33,21 @@ const PiplineCreate = (props) => {
   const redirect = tokenAdmin
     ? `/api/v1/accounts/${location.state.record.id}/show/1`
     : false;
+
+  const fetchAndUpdateConfigList = async () => {
+    const response = await getConfigurationsByAccountToken({ tokenAdmin });
+    const data = await response.data.map((arrElement) => {
+      return {
+        id: arrElement.name,
+        name: arrElement.name,
+      };
+    });
+    setConfigList(data);
+  };
+
+  useEffect(() => {
+    fetchAndUpdateConfigList();
+  }, []);
 
   if (!tokenAdmin) {
     return null;
@@ -43,7 +64,14 @@ const PiplineCreate = (props) => {
           source="pipline-name"
           defaultValue=""
         />
-        <TextInput validate={[required()]} source="configuration-id" />
+        {configList && (
+          <SelectInput
+            validate={[required()]}
+            source="configuration"
+            defaultValue="Default Configuration"
+            choices={configList}
+          />
+        )}
         <TextInput
           validate={[required()]}
           source="identifier"
@@ -58,6 +86,7 @@ const PiplineCreate = (props) => {
         <SelectInput
           validate={[required()]}
           source="technology"
+          defaultValue="objectclassifier"
           choices={[
             { id: "objectclassifier", name: "objectclassifier" },
             { id: "labelreader", name: "labelreader" },
@@ -71,6 +100,7 @@ const PiplineCreate = (props) => {
         <SelectInput
           validate={[required()]}
           source="platform"
+          defaultValue="sdk"
           choices={[
             { id: "sdk", name: "sdk" },
             { id: "cloud", name: "cloud" },
