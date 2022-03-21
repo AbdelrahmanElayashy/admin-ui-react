@@ -36,9 +36,9 @@ const UserShow = (props) => {
         <Tab label="Configuration">
           <ConfigurationList record={record} />
         </Tab>
-        <Tab label="statistics">
+        {/* <Tab label="statistics">
           <UserStatistic record={record} />
-        </Tab>
+        </Tab> */}
       </TabbedShowLayout>
     </Show>
   );

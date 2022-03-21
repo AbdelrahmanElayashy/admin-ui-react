@@ -38,7 +38,7 @@ const PiplineCreate = (props) => {
     const response = await getConfigurationsByAccountToken({ tokenAdmin });
     const data = await response.data.map((arrElement) => {
       return {
-        id: arrElement.name,
+        id: arrElement.id,
         name: arrElement.name,
       };
     });
