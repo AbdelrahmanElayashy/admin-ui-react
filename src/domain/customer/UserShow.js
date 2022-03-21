@@ -14,14 +14,12 @@ import { ConfigurationList } from "../configuration/ConfigurationList";
 import { PiplineList } from "../pipline/PiplineList";
 import UserStatistic from "../statistic/UserStatistic";
 
-// const ShowActions = ({ basePath, data, resource }) => {
-//   return <TopToolbar></TopToolbar>;
-// };
+const ShowActions = ({ basePath, data, resource }) => {
+  return <TopToolbar></TopToolbar>;
+};
 const UserShow = (props) => {
-
-
   return (
-    <Show {...props}>
+    <Show actions={<ShowActions />}>
       <TabbedShowLayout>
         <Tab label="summary">
           <TextField source="id" />

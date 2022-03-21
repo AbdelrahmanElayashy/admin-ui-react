@@ -11,6 +11,7 @@ import {
   DELETE,
   DELETE_MANY,
 } from "react-admin";
+import { getMasterToken } from "../state/TokensState";
 
 /**
  * Maps react-admin queries to a REST API implemented
@@ -33,7 +34,7 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
   const convertDataRequestToHTTP = (type, resource, params) => {
     let url = "";
     const options = {};
-
+    console.log("type", type);
     switch (type) {
       case GET_LIST: {
         const { tokenAdmin } = params.data || params.meta;
@@ -44,13 +45,7 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
         break;
       }
       case GET_ONE:
-        console.log("params", params);
-        options.headers = new Headers({
-          Authorization: params.id.tokenAdmin,
-        });
-        url = `${apiUrl}/${resource}/${params.id.id}`;
-        console.log("url", url);
-        console.log("tok", params.id.tokenAdmin);
+        //DON'T use get one for pipline. react admin breaks our role!
         break;
       case GET_MANY: {
         const query = {
@@ -159,6 +154,11 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
    */
   return (type, resource, params) => {
     // simple-rest doesn't handle filters on UPDATE route, so we fallback to calling UPDATE n times instead
+
+    if (type === GET_ONE) {
+      return Promise.resolve({ data: { id: params.id } });
+    }
+
     if (type === UPDATE_MANY) {
       return Promise.all(
         params.ids.map((id) =>
