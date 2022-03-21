@@ -28,7 +28,7 @@ const ShowPlatform = (props) => {
   );
 
   const getCurrentPlatform = () => {
-    if (!productionPlatformChecked) {
+    if (productionPlatformChecked) {
       return "Production Platform";
     }
 
