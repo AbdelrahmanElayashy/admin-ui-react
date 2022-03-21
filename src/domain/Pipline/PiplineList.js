@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   Paper,
   Table,
@@ -8,23 +8,18 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import { getPiplinesByAccountToken } from "../../api/Pipline";
-import DeleteIcon from "@mui/icons-material/Delete";
 import {
   Button,
-  EditButton,
   Link,
   TopToolbar,
   useGetList,
-  useShowContext,
   useShowController,
 } from "react-admin";
 import AddIcon from "@mui/icons-material/Add";
 import PiplineDelete from "./PiplineDelete";
-import PiplineEdit from "./PiplineEdit";
 import APIS from "../../dataProvider/ApiEndpoint";
-import PiplineEditButton from "./PiplineEditButton";
 import EditIcon from "@mui/icons-material/Edit";
+import { PiplineTest } from "./PiplineTest";
 
 const ShowActions = (props) => {
   return (
@@ -72,6 +67,7 @@ export const PiplineList = (props) => {
               <TableCell>configuration-id</TableCell>
               <TableCell align="right"></TableCell>
               <TableCell align="right"></TableCell>
+              <TableCell align="right"></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -88,6 +84,13 @@ export const PiplineList = (props) => {
                   <TableCell>{pipline.nodes[0].identifier}</TableCell>
                   <TableCell>{pipline.nodes[0].configuration}</TableCell>
                   <TableCell align="right">
+                    <PiplineTest
+                      piplineId={pipline.id}
+                      tokenRecognition={record.tokenRecognition}
+                      piplineName={pipline.name}
+                    />
+                  </TableCell>
+                  <TableCell align="right">
                     <Button
                       component={Link}
                       to={{
@@ -99,6 +102,7 @@ export const PiplineList = (props) => {
                       <EditIcon />
                     </Button>
                   </TableCell>
+
                   <TableCell align="right">
                     <PiplineDelete record={record} pipline={pipline} />
                   </TableCell>

@@ -54,7 +54,6 @@ const PiplineEdit = (props) => {
       descriptor: data.descriptor,
     };
     const transformedData = {
-      ...pipline,
       name: data.name,
       nodes: node,
     };
