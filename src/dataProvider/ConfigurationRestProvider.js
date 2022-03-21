@@ -31,6 +31,7 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
    * @returns {Object} { url, options } The HTTP request parameters
    */
   const convertDataRequestToHTTP = (type, resource, params) => {
+    console.log(params);
     const { tokenAdmin } = params.data;
     let url = "";
     const options = {
@@ -73,6 +74,7 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
       case CREATE:
         url = `${apiUrl}/${resource}`;
         options.method = "POST";
+        console.log("conf", params.data);
         options.body = JSON.stringify({
           name: params.data["configuration-name"],
           type: params.data.configuration,

@@ -41,6 +41,7 @@ export const ConfigurationCreate = (props) => {
         <SelectInput
           validate={[required()]}
           source="configuration"
+          defaultValue="classifier"
           choices={[
             { id: "imageSearch", name: "imageSearch" },
             { id: "analysis", name: "analysis" },
