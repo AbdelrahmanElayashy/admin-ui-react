@@ -2,6 +2,7 @@ import * as React from "react";
 import { AppBar, Logout } from "react-admin";
 import { makeStyles } from "@material-ui/core/styles";
 import TogglePlatform from "../TogglePlatform/TogglePlatform";
+import ShowPlatform from "../TogglePlatform/ShowPlatform";
 
 const useStyles = makeStyles({
   title: {
@@ -20,8 +21,9 @@ const MyAppBar = (props) => {
   return (
     <AppBar>
       <span className={classes.spacer} />
-      <TogglePlatform disabled />
+
       <Logout />
+      <ShowPlatform />
     </AppBar>
   );
 };

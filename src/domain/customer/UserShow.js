@@ -10,7 +10,7 @@ import {
 } from "react-admin";
 import { ConfigurationList } from "../Configuration/ConfigurationList";
 import { PiplineList } from "../Pipline/PiplineList";
-import UserStatistic from "./UserStatistic";
+import UserStatistic from "../statistic/UserStatistic";
 
 // const ShowActions = ({ basePath, data, resource }) => {
 //   return <TopToolbar></TopToolbar>;
