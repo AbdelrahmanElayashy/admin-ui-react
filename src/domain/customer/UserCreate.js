@@ -14,6 +14,11 @@ import {
 
 const UserCreate = (props) => {
   const dataProvider = useDataProvider();
+  const redirect = useRedirect();
+
+  const redirectToShow = async (id) => {
+    redirect(`/api/v1/accounts/${id}/show`);
+  };
 
   const save = async (response) => {
     const resp = await dataProvider.getOne("api/v1/accounts", {
@@ -27,11 +32,13 @@ const UserCreate = (props) => {
         tokenAdmin: resp.data.tokenAdmin,
       },
     });
+
+    await redirectToShow(response.data.id);
   };
 
   return (
     <Create {...props} onSuccess={save}>
-      <SimpleForm>
+      <SimpleForm redirect="show">
         <TextInput validate={[required()]} source="name" />
         <TextInput validate={[required()]} source="email" />
       </SimpleForm>

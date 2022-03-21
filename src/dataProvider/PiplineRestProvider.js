@@ -74,13 +74,14 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
         console.log("option", options);
         break;
       case CREATE:
+        console.log("config", params.data);
         url = `${apiUrl}/${resource}`;
         options.method = "POST";
         options.body = JSON.stringify({
           name: params.data["pipline-name"],
           nodes: [
             {
-              configuration: params.data["configuration-id"],
+              configuration: params.data["configuration"],
               descriptor: params.data.descriptor,
               technology: params.data.technology,
               platform: params.data.platform,
