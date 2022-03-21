@@ -15,6 +15,7 @@ import TogglePlatform from "../TogglePlatform/TogglePlatform";
 import { Notification, useLogin, useNotify } from "react-admin";
 import { initializePlatform } from "../../state/PlatformState";
 import grow from "../../static/grow-avatar.png";
+import { CircularProgress } from "@mui/material";
 
 const paperStyle = {
   padding: 20,
@@ -28,12 +29,15 @@ const btnstyle = { margin: "10px 0" };
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
   const login = useLogin();
   const notify = useNotify();
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setLoading(true);
     login({ email, password }).catch(() => {
+      setLoading(false);
       notify("Invalid email or password");
     });
   };
@@ -64,15 +68,21 @@ const Login = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
           <TogglePlatform style={btnstyle} />
-          <Button
-            type="submit"
-            color="primary"
-            variant="contained"
-            style={btnstyle}
-            fullWidth
-          >
-            Sign in
-          </Button>
+          {loading ? (
+            <div style={{ display: "flex", justifyContent: "space-around" }}>
+              <CircularProgress />
+            </div>
+          ) : (
+            <Button
+              type="submit"
+              color="primary"
+              variant="contained"
+              style={btnstyle}
+              fullWidth
+            >
+              Sign in
+            </Button>
+          )}
         </Paper>
       </Grid>
       <Notification />
