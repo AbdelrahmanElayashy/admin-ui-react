@@ -10,8 +10,8 @@ import MyLayout from "../MyLayout/MyLayout";
 import { UserShow } from "../../domain/customer/component/UserShow";
 import { getPlatformUrl, initializePlatform } from "../../state/PlatformState";
 import { createTheme } from "@material-ui/core/styles";
-import simpleRestProvider from "ra-data-simple-rest";
-import backendRestProvider from "../../dataProvider/UserRestProvider";
+import UserRestProvider from "../../dataProvider/UserRestProvider";
+import SuperRestProvider from "../../dataProvider/SuperRestProvider";
 
 const theme = createTheme({
   palette: {
@@ -21,16 +21,13 @@ const theme = createTheme({
 
 const App = () => {
   initializePlatform();
-  const urlPlatform = getPlatformUrl();
-
-  const dataProvider = backendRestProvider(urlPlatform);
 
   return (
     <Admin
       theme={theme}
       dashboard={Dashboard}
       layout={MyLayout}
-      dataProvider={dataProvider}
+      dataProvider={SuperRestProvider}
       disableTelemetry
     >
       <Resource

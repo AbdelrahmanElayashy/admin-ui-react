@@ -1,4 +1,3 @@
-// in src/users.js
 import { makeStyles } from "@material-ui/core/styles";
 import * as React from "react";
 import {
@@ -7,7 +6,6 @@ import {
   TextField,
   EmailField,
   EditButton,
-  ReferenceField,
   ShowButton,
   TextInput,
 } from "react-admin";

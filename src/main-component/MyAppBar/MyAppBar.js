@@ -1,9 +1,7 @@
 import * as React from "react";
-import { AppBar, RefreshButton } from "react-admin";
+import { AppBar } from "react-admin";
 import { makeStyles } from "@material-ui/core/styles";
 import TogglePlatform from "../TogglePlatform/TogglePlatform";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Switch from "@mui/material/Switch";
 
 const useStyles = makeStyles({
   title: {

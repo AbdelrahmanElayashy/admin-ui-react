@@ -3,12 +3,11 @@ import Switch from "@mui/material/Switch";
 import { useEffect, useState } from "react";
 import {
   isProductionPlatform,
-  updatePlatformUrl,
+  updatePlatformUrlAndReloadWindow,
   updateProductionPlatform,
 } from "../../state/PlatformState";
 
 const TogglePlatform = (props) => {
-  // const refresh = useRefresh();
   const [productionPlatformChecked, setProductionPlatformChecked] = useState(
     () => {
       const val = isProductionPlatform();
@@ -16,15 +15,10 @@ const TogglePlatform = (props) => {
     }
   );
 
-  // useEffect(() => {
-  //   window.location.reload();
-  // }, [productionPlatformChecked]);
-
   const handlePlatformChange = (e) => {
     const isProducktionPlatform = e.target.checked;
-    updatePlatformUrl(isProducktionPlatform);
     updateProductionPlatform(isProducktionPlatform);
-    window.location.reload();
+    updatePlatformUrlAndReloadWindow(isProducktionPlatform);
   };
   return (
     <FormControlLabel

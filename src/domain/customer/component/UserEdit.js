@@ -1,17 +1,5 @@
 import * as React from "react";
-import {
-  List,
-  Datagrid,
-  TextField,
-  ReferenceField,
-  EditButton,
-  Edit,
-  SimpleForm,
-  ReferenceInput,
-  SelectInput,
-  TextInput,
-  EmailField,
-} from "react-admin";
+import { Edit, SimpleForm, TextInput } from "react-admin";
 
 export const UserEdit = (props) => (
   <Edit {...props} undoable={false}>

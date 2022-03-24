@@ -22,7 +22,7 @@ export function isProductionPlatform() {
   return JSON.parse(localStorage.getItem("productionPlatformChecked"));
 }
 
-export function updatePlatformUrl(isProductionPlatform) {
+export function updatePlatformUrlAndReloadWindow(isProductionPlatform) {
   if (isProductionPlatform) {
     localStorage.setItem(
       "urlPlatform",
@@ -34,6 +34,7 @@ export function updatePlatformUrl(isProductionPlatform) {
       process.env.REACT_APP_URL_TEST_PLATFORM
     );
   }
+  window.location.reload();
 }
 
 export function updateProductionPlatform(isProductionPlatform) {
