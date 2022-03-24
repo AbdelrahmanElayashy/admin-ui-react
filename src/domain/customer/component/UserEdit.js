@@ -10,15 +10,14 @@ import {
   ReferenceInput,
   SelectInput,
   TextInput,
+  EmailField,
 } from "react-admin";
 
 export const UserEdit = (props) => (
   <Edit {...props} undoable={false}>
     <SimpleForm>
-      <TextInput disabled source="id" />
-      <TextInput source="title" />
-      <TextInput source="body" />
-      <TextInput multiline source="body" />
+      <TextInput source="name" />
+      <TextInput source="email" />
     </SimpleForm>
   </Edit>
 );
