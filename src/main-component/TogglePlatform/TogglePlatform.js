@@ -1,6 +1,6 @@
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   isProductionPlatform,
   updatePlatformUrlAndReloadWindow,

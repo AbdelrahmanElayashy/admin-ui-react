@@ -1,5 +1,5 @@
 import * as React from "react";
-import { AppBar } from "react-admin";
+import { AppBar, Logout } from "react-admin";
 import { makeStyles } from "@material-ui/core/styles";
 import TogglePlatform from "../TogglePlatform/TogglePlatform";
 
@@ -21,6 +21,7 @@ const MyAppBar = (props) => {
     <AppBar>
       <span className={classes.spacer} />
       <TogglePlatform />
+      <Logout />
     </AppBar>
   );
 };

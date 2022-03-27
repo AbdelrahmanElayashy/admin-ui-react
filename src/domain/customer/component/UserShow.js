@@ -1,16 +1,13 @@
-import { Divider } from "@mui/material";
 import * as React from "react";
 import {
   Show,
-  SimpleShowLayout,
   TextField,
-  DateField,
-  RichTextField,
   Tab,
   TabbedShowLayout,
   useRecordContext,
   EmailField,
 } from "react-admin";
+import { PiplineList } from "./PiplineList";
 import UserStatistic from "./UserStatistic";
 
 export const UserShow = (props) => {
@@ -25,8 +22,11 @@ export const UserShow = (props) => {
           <EmailField source="email" />
           <TextField source="master" />
           <TextField source="salt" />
-          {/* <TextField source="tokenAdmin" />
-          <TextField source="tokenRecognition" /> */}
+          <TextField source="tokenAdmin" />
+          <TextField source="tokenRecognition" />
+        </Tab>
+        <Tab label="Pipline">
+          <PiplineList record={record} />
         </Tab>
         <Tab label="statistics">
           <UserStatistic record={record} />

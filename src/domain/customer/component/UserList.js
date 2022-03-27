@@ -30,7 +30,7 @@ export const UserList = (props) => {
       exporter={false}
     >
       <Datagrid classes={classes}>
-        <TextField source="id" sortable={false} />
+        {/* <TextField source="id" sortable={false} /> */}
         <TextField source="name" sortable={false} />
         <EmailField source="email" sortable={false} />
         <EditButton />

@@ -1,6 +1,5 @@
 import * as React from "react";
-import jsonServerProvider from "ra-data-json-server";
-import { Admin, fetchUtils, Resource } from "react-admin";
+import { Admin, Resource } from "react-admin";
 import { UserList } from "../../domain/customer/component/UserList";
 import { UserEdit } from "../../domain/customer/component/UserEdit";
 import { UserCreate } from "../../domain/customer/component/UserCreate";
@@ -8,10 +7,10 @@ import UserIcon from "@material-ui/icons/Group";
 import Dashboard from "../MyAppBar/Dashboard";
 import MyLayout from "../MyLayout/MyLayout";
 import { UserShow } from "../../domain/customer/component/UserShow";
-import { getPlatformUrl, initializePlatform } from "../../state/PlatformState";
+import { initializePlatform } from "../../state/PlatformState";
 import { createTheme } from "@material-ui/core/styles";
-import UserRestProvider from "../../dataProvider/UserRestProvider";
 import SuperRestProvider from "../../dataProvider/SuperRestProvider";
+import authProvider from "../../auth/authProvider";
 
 const theme = createTheme({
   palette: {
@@ -28,6 +27,7 @@ const App = () => {
       dashboard={Dashboard}
       layout={MyLayout}
       dataProvider={SuperRestProvider}
+      authProvider={authProvider}
       disableTelemetry
     >
       <Resource
