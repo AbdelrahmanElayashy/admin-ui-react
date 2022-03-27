@@ -43,7 +43,8 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
         const { field, order } = params.sort;
         const q = params.filter.hasOwnProperty("q") ? params.filter.q : "";
         console.log(params, q);
-        url = `${apiUrl}/${resource}?filter=${q}`;
+        const skip = (page - 1) * perPage;
+        url = `${apiUrl}/${resource}?filter=${q}&skip=${skip}&limit=${perPage}`;
         break;
       }
       case GET_ONE:
@@ -106,7 +107,7 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
         // }
         return {
           data: data,
-          total: 1,
+          total: 1000,
         };
       case GET_ONE:
         return {
