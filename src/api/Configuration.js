@@ -1,7 +1,7 @@
 import { getPlatformUrl } from "../state/PlatformState";
 
-export function getPiplinesByAccountToken({ tokenAdmin }) {
-  const url = getPlatformUrl() + "/api/v1/pipelines";
+export function getConfigurationsByAccountToken({ tokenAdmin }) {
+  const url = getPlatformUrl() + "/api/v1/configurations";
   var myHeaders = new Headers();
   myHeaders.append("Authorization", tokenAdmin);
 

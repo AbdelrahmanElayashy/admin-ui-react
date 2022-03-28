@@ -2,14 +2,11 @@ const authProvider = {
   login: ({ username, password }) => {
     const url = process.env.REACT_APP_API_ADMIN_LOGIN;
     console.log(url);
-    const request = new Request(
-      "https://patrectestapimanagement.azure-api.net/api/v1/superadmins/login",
-      {
-        method: "POST",
-        body: JSON.stringify({ email: username, password: password }),
-        headers: new Headers({ "Content-Type": "application/json" }),
-      }
-    );
+    const request = new Request(url, {
+      method: "POST",
+      body: JSON.stringify({ email: username, password: password }),
+      headers: new Headers({ "Content-Type": "application/json" }),
+    });
     return fetch(request)
       .then((response) => {
         if (response.status < 200 || response.status >= 300) {
