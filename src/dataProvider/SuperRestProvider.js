@@ -1,10 +1,15 @@
 import { getPlatformUrl } from "../state/PlatformState";
+import ConfigurationRestProvider from "./ConfigurationRestProvider";
 import UserRestProvider from "./UserRestProvider";
 
 const dataProviders = [
   {
     dataProvider: UserRestProvider(getPlatformUrl()),
     resources: ["api/v1/accounts"],
+  },
+  {
+    dataProvider: ConfigurationRestProvider(getPlatformUrl()),
+    resources: ["api/v1/configurations"],
   },
 ];
 

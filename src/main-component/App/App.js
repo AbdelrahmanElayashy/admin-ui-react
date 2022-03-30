@@ -11,6 +11,7 @@ import { initializePlatform } from "../../state/PlatformState";
 import { createTheme } from "@material-ui/core/styles";
 import SuperRestProvider from "../../dataProvider/SuperRestProvider";
 import authProvider from "../../auth/authProvider";
+import { ConfigurationCreate } from "../../domain/Configuration.js/ConfigurationCreate";
 
 const theme = createTheme({
   palette: {
@@ -38,6 +39,11 @@ const App = () => {
         create={UserCreate}
         icon={UserIcon}
         show={UserShow}
+      />
+      <Resource
+        name="api/v1/configurations"
+        options={{ label: "Configurations" }}
+        create={ConfigurationCreate}
       />
     </Admin>
   );
