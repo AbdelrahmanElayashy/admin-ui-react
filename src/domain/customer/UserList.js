@@ -8,7 +8,9 @@ import {
   EditButton,
   ShowButton,
   TextInput,
+  useRecordContext,
 } from "react-admin";
+import UserDelete from "./UserDelete";
 
 const useStyles = makeStyles({
   headerCell: {
@@ -17,9 +19,9 @@ const useStyles = makeStyles({
 });
 
 const userFilters = [<TextInput label="Search By Name" source="q" alwaysOn />];
-
-export const UserList = (props) => {
+const UserList = (props) => {
   const classes = useStyles();
+
   return (
     <List
       {...props}
@@ -39,3 +41,5 @@ export const UserList = (props) => {
     </List>
   );
 };
+
+export default UserList;

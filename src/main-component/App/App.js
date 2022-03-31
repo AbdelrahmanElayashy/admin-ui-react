@@ -1,17 +1,19 @@
 import * as React from "react";
 import { Admin, Resource } from "react-admin";
-import { UserList } from "../../domain/customer/component/UserList";
-import { UserEdit } from "../../domain/customer/component/UserEdit";
-import { UserCreate } from "../../domain/customer/component/UserCreate";
+
 import UserIcon from "@material-ui/icons/Group";
 import Dashboard from "../MyAppBar/Dashboard";
 import MyLayout from "../MyLayout/MyLayout";
-import { UserShow } from "../../domain/customer/component/UserShow";
 import { initializePlatform } from "../../state/PlatformState";
 import { createTheme } from "@material-ui/core/styles";
 import SuperRestProvider from "../../dataProvider/SuperRestProvider";
 import authProvider from "../../auth/authProvider";
-import { ConfigurationCreate } from "../../domain/Configuration.js/ConfigurationCreate";
+import { ConfigurationCreate } from "../../domain/Configuration/ConfigurationCreate";
+import PiplineCreate from "../../domain/Pipline/PiplineCreate";
+import UserEdit from "../../domain/customer/UserEdit";
+import UserList from "../../domain/customer/UserList";
+import UserCreate from "../../domain/customer/UserCreate";
+import UserShow from "../../domain/customer/UserShow";
 
 const theme = createTheme({
   palette: {
@@ -44,6 +46,11 @@ const App = () => {
         name="api/v1/configurations"
         options={{ label: "Configurations" }}
         create={ConfigurationCreate}
+      />
+      <Resource
+        name="api/v1/pipelines"
+        options={{ label: "Pipelines" }}
+        create={PiplineCreate}
       />
     </Admin>
   );

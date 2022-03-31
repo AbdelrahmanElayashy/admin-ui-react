@@ -11,14 +11,14 @@ import {
   TopToolbar,
   TabbedShowLayoutTabs,
 } from "react-admin";
-import { ConfigurationList } from "./ConfigurationList";
-import { PiplineList } from "./PiplineList";
+import { ConfigurationList } from "../Configuration/ConfigurationList";
+import { PiplineList } from "../Pipline/PiplineList";
 import UserStatistic from "./UserStatistic";
 
 const ShowActions = ({ basePath, data, resource }) => {
   return <TopToolbar></TopToolbar>;
 };
-export const UserShow = (props) => {
+const UserShow = (props) => {
   const record = useRecordContext();
 
   return (
@@ -46,3 +46,5 @@ export const UserShow = (props) => {
     </Show>
   );
 };
+
+export default UserShow;

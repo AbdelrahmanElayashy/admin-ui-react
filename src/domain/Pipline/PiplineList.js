@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { forwardRef, useEffect, useState } from "react";
 import {
   Button,
   ButtonBase,
@@ -15,16 +15,24 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import { getPiplinesByAccountToken } from "../../../api/Pipline";
+import { getPiplinesByAccountToken } from "../../api/Pipline";
 import DeleteIcon from "@material-ui/icons/Delete";
-import { TopToolbar } from "react-admin";
+import { Link, TopToolbar } from "react-admin";
 import AddIcon from "@material-ui/icons/Add";
+import PiplineDelete from "./PiplineDelete";
 
-const ShowActions = () => {
+const ShowActions = (props) => {
   return (
     <TopToolbar>
-      <Button variant="outlined" startIcon={<AddIcon />} color="primary">
-        New Pipline
+      <Button
+        component={Link}
+        to={{
+          pathname: "/api/v1/pipelines/create",
+          state: { record: props.record },
+        }}
+        label="Create Pipline"
+      >
+        <AddIcon />
       </Button>
     </TopToolbar>
   );
@@ -61,6 +69,7 @@ export const PiplineList = (props) => {
             <TableRow>
               <TableCell>name</TableCell>
               <TableCell>id</TableCell>
+              <TableCell>configuration-id</TableCell>
               <TableCell align="right"></TableCell>
             </TableRow>
           </TableHead>
@@ -75,42 +84,16 @@ export const PiplineList = (props) => {
                     {pipline.name}
                   </TableCell>
                   <TableCell>{pipline.id}</TableCell>
+                  <TableCell>{pipline.nodes[0].configuration}</TableCell>
                   <TableCell align="right">
-                    <Button
-                      color="error"
-                      startIcon={<DeleteIcon />}
-                      onClick={handleClickOpen}
-                    >
-                      Delete
-                    </Button>
-                    <Dialog
-                      open={open}
-                      onClose={handleClose}
-                      aria-labelledby="alert-dialog-title"
-                      aria-describedby="alert-dialog-description"
-                    >
-                      <DialogTitle id="alert-dialog-title">
-                        {`Delete pipline ${pipline.name}`}
-                      </DialogTitle>
-                      <DialogContent>
-                        <DialogContentText id="alert-dialog-description">
-                          Are you sure you want to delete this item?
-                        </DialogContentText>
-                      </DialogContent>
-                      <DialogActions>
-                        <Button onClick={handleClose}>Cancel</Button>
-                        <Button onClick={handleClose} autoFocus>
-                          Confirm
-                        </Button>
-                      </DialogActions>
-                    </Dialog>
+                    <PiplineDelete record={record} pipline={pipline} />
                   </TableCell>
                 </TableRow>
               ))}
           </TableBody>
         </Table>
       </TableContainer>
-      <ShowActions />
+      {piplines && <ShowActions record={record} />}
     </>
   );
 };

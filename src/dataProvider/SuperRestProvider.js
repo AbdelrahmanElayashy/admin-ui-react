@@ -1,5 +1,6 @@
 import { getPlatformUrl } from "../state/PlatformState";
 import ConfigurationRestProvider from "./ConfigurationRestProvider";
+import PiplineRestProvider from "./PiplineRestProvider";
 import UserRestProvider from "./UserRestProvider";
 
 const dataProviders = [
@@ -10,6 +11,10 @@ const dataProviders = [
   {
     dataProvider: ConfigurationRestProvider(getPlatformUrl()),
     resources: ["api/v1/configurations"],
+  },
+  {
+    dataProvider: PiplineRestProvider(getPlatformUrl()),
+    resources: ["api/v1/pipelines"],
   },
 ];
 

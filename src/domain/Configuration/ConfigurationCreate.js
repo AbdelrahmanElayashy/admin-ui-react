@@ -8,29 +8,39 @@ import {
   SaveButton,
   useMutation,
   required,
+  Toolbar,
 } from "react-admin";
 import { useLocation } from "react-router";
+
+const CustomToolbar = (props) => (
+  <Toolbar {...props}>
+    <SaveButton />
+  </Toolbar>
+);
 
 export const ConfigurationCreate = (props) => {
   const location = useLocation();
   console.log(location);
   const tokenAdmin =
     location.state && location.state.record
-      ? location.state.record.record.tokenAdmin
+      ? location.state.record.tokenAdmin
       : undefined;
 
   const redirect = tokenAdmin
-    ? `/api/v1/accounts/${location.state.record.record.id}/show/2`
+    ? `/api/v1/accounts/${location.state.record.id}/show/2`
     : false;
 
-  console.log(tokenAdmin);
+  if (!tokenAdmin) {
+    return null;
+  }
+
   return (
     <Create
       {...props}
       transform={(data) => ({ ...data, tokenAdmin: tokenAdmin })}
     >
-      <SimpleForm redirect={redirect}>
-        <TextInput validate={[required()]} source="name" />
+      <SimpleForm redirect={redirect} toolbar={<CustomToolbar />}>
+        <TextInput validate={[required()]} source="configuration-name" />
         <SelectInput
           validate={[required()]}
           source="configuration"

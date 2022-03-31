@@ -68,18 +68,28 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
       case UPDATE:
         url = `${apiUrl}/${resource}/${params.id}`;
         options.method = "PUT";
-        options.body = JSON.stringify({});
+        options.body = JSON.stringify({
+          email: params.data.email,
+          name: params.data.name,
+        });
         console.log("option", options);
         break;
       case CREATE:
         url = `${apiUrl}/${resource}`;
         options.method = "POST";
         options.body = JSON.stringify({
-          name: params.data["configuration-name"],
-          type: params.data.configuration,
-          custom: {
-            key: "value",
-          },
+          name: params.data["pipline-name"],
+          nodes: [
+            {
+              configuration: params.data["configuration-id"],
+              descriptor: params.data.descriptor,
+              technology: params.data.technology,
+              platform: params.data.platform,
+              identifier: params.data.identifier,
+              dependencies: [],
+              inputTypes: params.data.inputTypes,
+            },
+          ],
         });
         break;
       case DELETE:
