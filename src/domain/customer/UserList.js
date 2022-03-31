@@ -8,9 +8,7 @@ import {
   EditButton,
   ShowButton,
   TextInput,
-  useRecordContext,
 } from "react-admin";
-import UserDelete from "./UserDelete";
 
 const useStyles = makeStyles({
   headerCell: {

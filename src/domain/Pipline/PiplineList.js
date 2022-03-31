@@ -1,12 +1,6 @@
-import { forwardRef, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Button,
-  ButtonBase,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
   Paper,
   Table,
   TableBody,
@@ -58,8 +52,6 @@ export const PiplineList = (props) => {
   if (!record) {
     return null;
   }
-
-  console.log(record);
 
   return (
     <>

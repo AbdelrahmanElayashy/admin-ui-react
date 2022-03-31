@@ -1,4 +1,3 @@
-import { Button } from "@mui/material";
 import * as React from "react";
 import {
   Show,
@@ -7,22 +6,20 @@ import {
   TabbedShowLayout,
   useRecordContext,
   EmailField,
-  EditButton,
   TopToolbar,
-  TabbedShowLayoutTabs,
 } from "react-admin";
 import { ConfigurationList } from "../Configuration/ConfigurationList";
 import { PiplineList } from "../Pipline/PiplineList";
 import UserStatistic from "./UserStatistic";
 
-const ShowActions = ({ basePath, data, resource }) => {
-  return <TopToolbar></TopToolbar>;
-};
+// const ShowActions = ({ basePath, data, resource }) => {
+//   return <TopToolbar></TopToolbar>;
+// };
 const UserShow = (props) => {
   const record = useRecordContext();
 
   return (
-    <Show {...props} actions={<ShowActions />}>
+    <Show {...props}>
       <TabbedShowLayout>
         <Tab label="summary">
           <TextField source="id" />

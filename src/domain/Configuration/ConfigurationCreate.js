@@ -2,11 +2,9 @@ import * as React from "react";
 import {
   Create,
   SimpleForm,
-  ReferenceInput,
   SelectInput,
   TextInput,
   SaveButton,
-  useMutation,
   required,
   Toolbar,
 } from "react-admin";
@@ -20,7 +18,6 @@ const CustomToolbar = (props) => (
 
 export const ConfigurationCreate = (props) => {
   const location = useLocation();
-  console.log(location);
   const tokenAdmin =
     location.state && location.state.record
       ? location.state.record.tokenAdmin

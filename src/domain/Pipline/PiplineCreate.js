@@ -2,14 +2,11 @@ import * as React from "react";
 import {
   Create,
   SimpleForm,
-  ReferenceInput,
   SelectInput,
   TextInput,
   SaveButton,
-  useMutation,
   required,
   CheckboxGroupInput,
-  TopToolbar,
   Toolbar,
 } from "react-admin";
 import { useLocation } from "react-router";
@@ -22,7 +19,6 @@ const CustomToolbar = (props) => (
 
 const PiplineCreate = (props) => {
   const location = useLocation();
-  console.log(location);
   const tokenAdmin =
     location.state && location.state.record
       ? location.state.record.tokenAdmin

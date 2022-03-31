@@ -42,7 +42,6 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
         const { page, perPage } = params.pagination;
         const { field, order } = params.sort;
         const q = params.filter.hasOwnProperty("q") ? params.filter.q : "";
-        console.log(params, q);
         const skip = (page - 1) * perPage;
         url = `${apiUrl}/${resource}?filter=${q}&skip=${skip}&limit=${perPage}`;
         break;

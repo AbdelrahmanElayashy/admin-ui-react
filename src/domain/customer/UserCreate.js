@@ -1,14 +1,5 @@
 import * as React from "react";
-import {
-  Create,
-  SimpleForm,
-  ReferenceInput,
-  SelectInput,
-  TextInput,
-  SaveButton,
-  useMutation,
-  required,
-} from "react-admin";
+import { Create, SimpleForm, TextInput, required } from "react-admin";
 const UserCreate = (props) => {
   return (
     <Create {...props}>

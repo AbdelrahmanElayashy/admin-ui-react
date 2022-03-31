@@ -1,7 +1,6 @@
 import { makeStyles } from "@material-ui/core/styles";
 import * as React from "react";
 import {
-  DeleteButton,
   Edit,
   SaveButton,
   SimpleForm,

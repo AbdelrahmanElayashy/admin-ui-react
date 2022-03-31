@@ -12,20 +12,8 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import ButtonMui from "@mui/material/Button";
 import { forwardRef, useEffect, useState } from "react";
-import {
-  Button,
-  CreateButton,
-  Error,
-  Link,
-  Loading,
-  Show,
-  SimpleForm,
-  TopToolbar,
-  useDataProvider,
-  useDelete,
-} from "react-admin";
+import { Button, CreateButton, Error, Link, TopToolbar } from "react-admin";
 import { getConfigurationsByAccountToken } from "../../api/Configuration";
 import AddIcon from "@material-ui/icons/Add";
 

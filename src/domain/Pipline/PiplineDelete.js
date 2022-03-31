@@ -7,11 +7,13 @@ import {
   Button,
 } from "@mui/material";
 import { useState } from "react";
-import { useDataProvider } from "react-admin";
+import { useDataProvider, useNotify, useRefresh } from "react-admin";
 import DeleteIcon from "@material-ui/icons/Delete";
 
 const PiplineDelete = (props) => {
   const [open, setOpen] = useState(false);
+  const refresh = useRefresh();
+  const notify = useNotify();
   const dataProvider = useDataProvider();
 
   const handleClickOpen = () => {
@@ -40,8 +42,14 @@ const PiplineDelete = (props) => {
           tokenAdmin: record.tokenAdmin,
         },
       })
-      .then(() => {})
-      .catch((error) => {});
+      .then(() => {
+        refresh();
+        notify(`Pipline is deleted`, { type: "info" });
+      })
+      .catch((error) => {
+        refresh();
+        notify(`${error}`, { type: "warning" });
+      });
   };
 
   return (

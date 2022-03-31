@@ -7,7 +7,7 @@ import {
   Button,
 } from "@mui/material";
 import { useState } from "react";
-import { useDataProvider, useNotify } from "react-admin";
+import { useDataProvider, useNotify, useRedirect } from "react-admin";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { getConfigurationsByAccountToken } from "../../api/Configuration";
 import { getPiplinesByAccountToken } from "../../api/Pipline";
@@ -15,6 +15,7 @@ import { getPiplinesByAccountToken } from "../../api/Pipline";
 const UserDelete = (props) => {
   const [open, setOpen] = useState(false);
   const dataProvider = useDataProvider();
+  const redirect = useRedirect();
   const notify = useNotify();
 
   const handleClickOpen = () => {
@@ -50,6 +51,7 @@ const UserDelete = (props) => {
         })
         .then((e) => {
           notify(`User is deleted`, { type: "info" });
+          redirect("/api/v1/accounts");
         })
         .catch((error) => {
           notify(`User is not deleted`, { type: "warning" });
