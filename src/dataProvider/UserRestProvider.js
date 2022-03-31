@@ -11,6 +11,7 @@ import {
   DELETE,
   DELETE_MANY,
 } from "react-admin";
+import { getMasterToken } from "../state/TokensState";
 
 /**
  * Maps react-admin queries to a REST API implemented
@@ -32,9 +33,10 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
    */
   const convertDataRequestToHTTP = (type, resource, params) => {
     let url = "";
+    const masterToken = getMasterToken();
     const options = {
       headers: new Headers({
-        Authorization: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjViNmQ4OGVkNDE4NzU4MDAwNjhjNWFmMyIsInNhbHQiOiJQM1BFT2ViNEdrdG1LVDViVm9rV3FnZlhTZWRXb1BJeDkwTlNzZzZISXQ0PSIsInR5cGUiOiJtYXN0ZXIifQ.qRQ2ALoPScwffurjQInF2aFCXXNML4xdKsWaHl3EVJ8`,
+        Authorization: masterToken,
       }),
     };
     switch (type) {

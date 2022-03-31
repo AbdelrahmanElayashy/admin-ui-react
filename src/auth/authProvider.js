@@ -1,3 +1,5 @@
+import { initializeMasterToken } from "../state/TokensState";
+
 const authProvider = {
   login: ({ username, password }) => {
     const url = process.env.REACT_APP_API_ADMIN_LOGIN;
@@ -16,6 +18,7 @@ const authProvider = {
       })
       .then((auth) => {
         localStorage.setItem("auth", JSON.stringify(auth));
+        initializeMasterToken();
       })
       .catch(() => {
         throw new Error("Invalid email or password");
@@ -38,6 +41,7 @@ const authProvider = {
   },
   logout: () => {
     localStorage.removeItem("auth");
+    localStorage.removeItem("tokenMaster");
     return Promise.resolve();
   },
 };
