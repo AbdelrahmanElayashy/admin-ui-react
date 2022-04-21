@@ -28,6 +28,10 @@ const TogglePlatform = (props) => {
   );
 
   const handlePlatformChange = (e) => {
+    // if toggle platform is disabled then return and don't do any changes to platform
+    if (props.disabled) {
+      return;
+    }
     const isProducktionPlatform = e.target.checked;
     updateProductionPlatform(isProducktionPlatform);
     updatePlatformUrlAndReloadWindow(isProducktionPlatform);

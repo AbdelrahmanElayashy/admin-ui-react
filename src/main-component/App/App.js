@@ -14,6 +14,7 @@ import UserEdit from "../../domain/customer/UserEdit";
 import UserList from "../../domain/customer/UserList";
 import UserCreate from "../../domain/customer/UserCreate";
 import UserShow from "../../domain/customer/UserShow";
+import Login from "../Login/Login";
 
 const theme = createTheme({
   palette: {
@@ -26,6 +27,7 @@ const App = () => {
 
   return (
     <Admin
+      loginPage={Login}
       theme={theme}
       dashboard={Dashboard}
       layout={MyLayout}

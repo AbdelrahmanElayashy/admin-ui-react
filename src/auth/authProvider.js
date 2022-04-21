@@ -1,12 +1,13 @@
+import { getPlatformUrl } from "../state/PlatformState";
 import { initializeMasterToken } from "../state/TokensState";
 
 const authProvider = {
-  login: ({ username, password }) => {
-    const url = process.env.REACT_APP_API_ADMIN_LOGIN;
+  login: ({ email, password }) => {
+    const url = getPlatformUrl() + "/api/v1/superadmins/login";
     console.log(url);
     const request = new Request(url, {
       method: "POST",
-      body: JSON.stringify({ email: username, password: password }),
+      body: JSON.stringify({ email, password }),
       headers: new Headers({ "Content-Type": "application/json" }),
     });
     return fetch(request)

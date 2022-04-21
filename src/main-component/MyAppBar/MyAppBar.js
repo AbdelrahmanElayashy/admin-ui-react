@@ -20,7 +20,7 @@ const MyAppBar = (props) => {
   return (
     <AppBar>
       <span className={classes.spacer} />
-      <TogglePlatform />
+      <TogglePlatform disabled />
       <Logout />
     </AppBar>
   );
