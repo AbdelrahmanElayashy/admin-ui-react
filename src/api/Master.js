@@ -1,6 +1,6 @@
 import { getPlatformUrl } from "../state/PlatformState";
 
-const urlMaster = process.env.REACT_APP_API_MASTER;
+const urlMaster = getPlatformUrl() + "/api/v1/masters";
 
 export async function getMasterIdByAdminToken(tokenAdmin) {
   var myHeaders = new Headers();

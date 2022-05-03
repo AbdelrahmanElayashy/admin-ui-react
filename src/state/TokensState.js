@@ -7,7 +7,7 @@ function getSuperAdminToken() {
 export async function initializeMasterToken() {
   const tokenAdmin = getSuperAdminToken();
   const response = await getMasterIdByAdminToken(tokenAdmin);
-  const masterId = JSON.parse(response).data[0].id;
+  const masterId = JSON.parse(response).data[0].id; //Fetch the first master in data array!!
   return await getMasterTokenById({ masterId, tokenAdmin }).then((result) =>
     localStorage.setItem("tokenMaster", JSON.parse(result).tokenMaster)
   );

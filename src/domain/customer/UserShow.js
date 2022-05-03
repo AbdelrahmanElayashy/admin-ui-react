@@ -8,8 +8,8 @@ import {
   EmailField,
   TopToolbar,
 } from "react-admin";
-import { ConfigurationList } from "../Configuration/ConfigurationList";
-import { PiplineList } from "../Pipline/PiplineList";
+import { ConfigurationList } from "../configuration/ConfigurationList";
+import { PiplineList } from "../pipline/PiplineList";
 import UserStatistic from "../statistic/UserStatistic";
 
 // const ShowActions = ({ basePath, data, resource }) => {
