@@ -35,7 +35,7 @@ const ShowPlatform = (props) => {
     return "Test Platform";
   };
 
-  return <p>{getCurrentPlatform()}</p>;
+  return <span {...props}>{getCurrentPlatform()}</span>;
 };
 
 export default ShowPlatform;

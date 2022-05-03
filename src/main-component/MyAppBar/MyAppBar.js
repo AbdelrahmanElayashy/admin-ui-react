@@ -3,6 +3,7 @@ import { AppBar, Logout } from "react-admin";
 import { makeStyles } from "@material-ui/core/styles";
 import TogglePlatform from "../TogglePlatform/TogglePlatform";
 import ShowPlatform from "../TogglePlatform/ShowPlatform";
+import MyUserMenu from "./MyUserMenu";
 
 const useStyles = makeStyles({
   title: {
@@ -19,10 +20,9 @@ const useStyles = makeStyles({
 const MyAppBar = (props) => {
   const classes = useStyles();
   return (
-    <AppBar>
+    <AppBar userMenu={<MyUserMenu />}>
       <span className={classes.spacer} />
 
-      <Logout />
       <ShowPlatform />
     </AppBar>
   );
