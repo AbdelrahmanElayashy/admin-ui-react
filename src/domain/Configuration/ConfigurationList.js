@@ -28,10 +28,9 @@ const ShowActions = (props) => (
         pathname: `/${APIS.CONFIGURATIONS}/create`,
         state: { record: props.record },
       }}
-      label=""
+      label="Add Configuration"
     >
       <AddIcon />
-      Add Configuration
     </Button>
   </TopToolbar>
 );

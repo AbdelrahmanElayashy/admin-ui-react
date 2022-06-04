@@ -12,9 +12,11 @@ export class PiplineTest extends React.Component {
     this.state = {
       loading: false,
       buttonTestColor: "warning",
-      buttonTestText: "Test",
+      buttonTestText: "",
     };
     this.intervalID = 0;
+    this.startTime = 0;
+    this.elapsedTime = 0;
   }
 
   setLoading = (val) => {
@@ -26,7 +28,7 @@ export class PiplineTest extends React.Component {
 
   handleClick = () => {
     this.setLoading(true);
-    console.time(`Time Taken for (${this.props.piplineName})`);
+    this.startTime = new Date().getTime();
     getTestPiplineRegonitionId(
       this.props.piplineId,
       this.props.tokenRecognition
@@ -35,10 +37,10 @@ export class PiplineTest extends React.Component {
         setTimeout(() => {
           this.intervalID = setInterval(
             this.getPiplineRecognitionStatus,
-            500,
+            150,
             result.id
           );
-        }, 500);
+        }, 150);
       })
       .catch((e) => this.onError());
   };
@@ -58,7 +60,7 @@ export class PiplineTest extends React.Component {
     this.setState(() => ({
       loading: false,
       buttonTestColor: "success",
-      buttonTestText: "Success",
+      buttonTestText: `${this.elapsedTime} ms`,
     }));
   };
 
@@ -66,14 +68,16 @@ export class PiplineTest extends React.Component {
     this.setState(() => ({
       loading: false,
       buttonTestColor: "error",
-      buttonTestText: "Error",
+      buttonTestText: "",
     }));
   };
 
   checkRegconitionStatus = (resp) => {
     switch (resp.status) {
       case "FINISHED":
-        console.timeEnd(`Time Taken for (${this.props.piplineName})`);
+        if (this.elapsedTime === 0) {
+          this.elapsedTime = new Date().getTime() - this.startTime;
+        }
         this.onSuccess();
         clearInterval(this.intervalID);
         break;
@@ -89,13 +93,15 @@ export class PiplineTest extends React.Component {
   render() {
     return (
       <LoadingButton
-        variant="contained"
+        variant="text"
         color={this.state.buttonTestColor}
         onClick={this.handleClick}
         loading={this.state.loading}
       >
-        <NetworkCheckIcon />
-        {this.state.buttonTestText}
+        <NetworkCheckIcon style={{ marginRight: "10px" }} />
+        <span style={{ fontSize: "11px", textTransform: "Lowercase" }}>
+          {this.state.buttonTestText}
+        </span>
       </LoadingButton>
     );
   }

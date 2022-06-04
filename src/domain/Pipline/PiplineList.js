@@ -30,10 +30,9 @@ const ShowActions = (props) => {
           pathname: `/${APIS.PIPELINES}/create`,
           state: { record: props.record },
         }}
-        label=""
+        label="Add Pipline"
       >
         <AddIcon />
-        Add Pipline
       </Button>
     </TopToolbar>
   );
@@ -66,7 +65,7 @@ export const PiplineList = (props) => {
               <TableCell>identifier</TableCell>
               <TableCell>configuration-id</TableCell>
               <TableCell align="right"></TableCell>
-              <TableCell align="right"></TableCell>
+              {/* <TableCell align="right"></TableCell> */}
               <TableCell align="right"></TableCell>
             </TableRow>
           </TableHead>
@@ -90,7 +89,7 @@ export const PiplineList = (props) => {
                       piplineName={pipline.name}
                     />
                   </TableCell>
-                  <TableCell align="right">
+                  {/* <TableCell align="right">
                     <Button
                       component={Link}
                       to={{
@@ -101,7 +100,7 @@ export const PiplineList = (props) => {
                     >
                       <EditIcon />
                     </Button>
-                  </TableCell>
+                  </TableCell> */}
 
                   <TableCell align="right">
                     <PiplineDelete record={record} pipline={pipline} />
