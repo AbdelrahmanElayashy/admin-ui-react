@@ -37,12 +37,12 @@ export class PiplineTest extends React.Component {
         setTimeout(() => {
           this.intervalID = setInterval(
             this.getPiplineRecognitionStatus,
-            150,
+            500,
             result.id
           );
-        }, 150);
+        }, 500);
       })
-      .catch((e) => this.onError());
+      .catch((e) => this.onError("error"));
   };
 
   getPiplineRecognitionStatus = (recognitionId) => {
@@ -64,12 +64,16 @@ export class PiplineTest extends React.Component {
     }));
   };
 
-  onError = () => {
+  onError = (msg) => {
     this.setState(() => ({
       loading: false,
       buttonTestColor: "error",
-      buttonTestText: "",
+      buttonTestText: msg,
     }));
+  };
+
+  componentWillUnmount = () => {
+    clearInterval(this.intervalID);
   };
 
   checkRegconitionStatus = (resp) => {
@@ -82,9 +86,15 @@ export class PiplineTest extends React.Component {
         clearInterval(this.intervalID);
         break;
       case "RUNNING":
+        this.elapsedTime = new Date().getTime() - this.startTime;
+        if (this.elapsedTime > 20000) {
+          this.onError("Timeout");
+          clearInterval(this.intervalID);
+        }
+
         break;
       default:
-        this.onError();
+        this.onError("Timeout");
         clearInterval(this.intervalID);
         break;
     }
